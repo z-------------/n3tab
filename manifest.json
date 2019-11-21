@@ -1,0 +1,18 @@
+{
+    "manifest_version": 2,
+    "name": "n3tab",
+    "description": "A new New New Tab Page.",
+    "version": "0.0.0",
+    "permissions": [
+        "topSites"
+    ],
+    "chrome_url_overrides": {
+        "newtab": "index.html"
+    },
+    "browser_specific_settings": {
+        "gecko": {
+            "id": "n3tab@zackguard.com",
+            "strict_min_version": "42.0"
+        }
+    }
+}
