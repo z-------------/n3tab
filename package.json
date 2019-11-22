@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "watch": "webpack --watch"
+  },
   "devDependencies": {
     "@types/firefox-webext-browser": "^70.0.1",
     "ts-loader": "^6.2.1",
