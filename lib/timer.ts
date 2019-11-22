@@ -5,13 +5,13 @@ export default class Timer {
 
     start() {
         const that = this.that;
-        setInterval(() => {
+        this.timerId = window.setInterval(() => {
             this.fn.call(that);
         }, this.interval);
     }
 
     stop() {
-        if (!this.timerId) throw new Error("This timer is not running.");
+        if (!this.timerId) throw new Error("Cannot stop a timer that hasn't started.");
         clearInterval(this.timerId);
     }
 }
