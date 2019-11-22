@@ -11,10 +11,10 @@ export default class CardsListElem extends ListElem {
     }
 
     push(datum: Params) {
-        super.push(datum, new CardElem(datum, this.headingLevel));
+        super.pushElem(new CardElem(datum, this.headingLevel));
     }
 
     unshift(datum: Params) {
-        super.unshift(datum, new CardElem(datum, this.headingLevel));
+        super.unshiftElem(new CardElem(datum, this.headingLevel));
     }
 }

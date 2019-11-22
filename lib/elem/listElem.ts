@@ -10,28 +10,30 @@ export default abstract class ListElem extends Elem {
         this.element = pmx(ordered ? "ol" : "ul");
     }
 
-    setAll(data: Params[]) {
-        // TODO: grow or shrink list if lengths don't match
-        for (let i = 0, l = Math.min(data.length, this.elems.length); i < l; ++i) {
-            this.elems[i].setParams(data[i]);
-        }
-    }
+    // setAll(data: Params[]) {
+    //     // TODO: grow or shrink list if lengths don't match
+    //     for (let i = 0, l = Math.min(data.length, this.elems.length); i < l; ++i) {
+    //         this.elems[i].setParams(data[i]);
+    //     }
+    // }
 
     getAll(): Params[] {
         return this.elems.map(elem => elem.getParams());
     }
 
-    protected push(datum: Params, elem: InterpolateElem) {
-        elem.setParams(datum);
+    protected pushElem(elem: InterpolateElem) {
         this.elems.push(elem);
         elem.appendTo(this.element);
     }
 
-    protected unshift(datum: Params, elem: InterpolateElem) {
-        elem.setParams(datum);
+    protected unshiftElem(elem: InterpolateElem) {
         this.elems.unshift(elem);
         elem.appendToHead(this.element);
     }
+
+    abstract push(o: object): void;
+
+    abstract unshift(o: object): void;
 
     remove(index: number) {
         const removedElem = this.elems.splice(index, 1)[0];
@@ -39,7 +41,7 @@ export default abstract class ListElem extends Elem {
         this.element.removeChild(removedElem.getElement());
     }
 
-    set(index: number, datum: Params) {
-        this.elems[index].setParams(datum);
-    }
+    // set(index: number, datum: Params) {
+    //     this.elems[index].setParams(datum);
+    // }
 }

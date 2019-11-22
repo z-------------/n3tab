@@ -1,9 +1,10 @@
-import SiteCardElem from "../lib/elem/siteCardElem";
+import SiteCardsListElem from "./elem/siteCardsListElem";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const topSites = await browser.topSites.get();
+    const list = new SiteCardsListElem();
     for (let info of topSites) {
-        const card = new SiteCardElem(info);
-        card.appendTo(document.body);
+        list.push(info);
     }
+    list.appendTo(document.body);
 });
