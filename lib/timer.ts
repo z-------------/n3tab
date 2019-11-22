@@ -1,5 +1,5 @@
 export default class Timer {
-    private timerId: number;
+    private timerId: number | undefined;
 
     constructor(private fn: Function, private interval: number, private that: any) {}
 
@@ -11,7 +11,15 @@ export default class Timer {
     }
 
     stop() {
-        if (!this.timerId) throw new Error("Cannot stop a timer that hasn't started.");
+        if (typeof this.timerId === "undefined") throw new Error("Timer not running.");
         clearInterval(this.timerId);
+        this.timerId = undefined;
+    }
+
+    once() {
+        const that = this.that;
+        this.timerId = window.setTimeout(() => {
+            this.fn.call(that);
+        }, this.interval);
     }
 }
