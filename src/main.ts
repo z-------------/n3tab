@@ -1,4 +1,4 @@
-import SiteCardElem from "./elem/siteCardElem";
+import SiteCardElem from "../lib/elem/siteCardElem";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const topSites = await browser.topSites.get();
