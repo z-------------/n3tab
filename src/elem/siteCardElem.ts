@@ -1,9 +1,10 @@
-import CardElem from "../../lib/elem/cardElem";
 import Elem from "../../lib/elem/elem";
+import InterpolateElem from "../../lib/elem/interpolateElem";
+import pmx from "../../lib/pmx";
 
 export type SiteInfo = browser.topSites.MostVisitedURL;
 
-export default class SiteCardElem extends CardElem {
+export default class SiteCardElem extends InterpolateElem {
     private getSimpleURL(url: string) {
         return new URL(url).hostname;
     }
@@ -12,13 +13,19 @@ export default class SiteCardElem extends CardElem {
     private processSiteInfo(info: SiteInfo) {
         return {
             heading: info.title ? Elem.escape(info.title) : this.getSimpleURL(info.url),
-            body: Elem.escape(info.url)
+            // body: Elem.escape(info.url)
         };
     }
 
     constructor(info: SiteInfo) {
-        super({}, 2);
-        this.element.classList.add("site-card", "card--horizontal");
+        super("<span>${heading}</span>");
+        this.element = pmx("a", {
+            classList: ["chip", "plain-anchor"],
+            attrs: {
+                href: info.url,
+                title: info.url
+            }
+        });
         this.setParams(this.processSiteInfo(info));
     }
 }
