@@ -4,7 +4,8 @@
     "description": "A new New New Tab Page.",
     "version": "0.0.0",
     "permissions": [
-        "topSites"
+        "topSites",
+        "https://nntp-server-redux.netlify.com/*"
     ],
     "chrome_url_overrides": {
         "newtab": "dist/index.html"
