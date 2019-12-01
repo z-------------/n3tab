@@ -25,9 +25,12 @@ body
 @mixin text-size-medium
     font-size: 2em
 
-ul, li
+ul, ol, li
     margin: 0
     padding: 0
+
+li
+    display: inline-block
 
 @for $i from 1 through 3
     h#{$i}
@@ -70,11 +73,14 @@ ul, li
     padding: 0.3em 1em
 
 .card
+    display: block
+    
     &:not(:last-child)
         margin-bottom: 1em
 
 .chip
     margin: 0 0.3em 0.3em 0
+    display: inline-block
 
 .site-cards-list
     display: flex
