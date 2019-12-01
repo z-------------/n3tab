@@ -3,10 +3,10 @@ import Elem from "./elem";
 import { Params } from "./interpolateElem";
 import InfoElem from "./infoElem";
 
-export default class ListElem<T extends InfoElem> extends Elem {
+export default class ListElem extends Elem {
     private elems: InfoElem[] = [];
 
-    constructor(ordered: boolean = false, private c: new () => T) {
+    constructor(ordered: boolean = false, private c: new () => InfoElem) {
         super();
         this.element = pmx(ordered ? "ol" : "ul");
     }
@@ -22,25 +22,48 @@ export default class ListElem<T extends InfoElem> extends Elem {
     //     return this.elems.map(elem => elem.getParams());
     // }
 
-    push(info: object): void {
-        const newItem = new this.c();
-        newItem.setInfo(info);
-        this.elems.push(newItem);
-
+    private createContainer(elem: InfoElem) {
         const liElement = document.createElement("li");
-        newItem.appendTo(liElement);
-        this.element.appendChild(liElement);
+        elem.appendTo(liElement);
+        return liElement;
     }
 
-    // unshift(o: object): void;
+    private create(info: object): InfoElem {
+        const newItem = new this.c();
+        newItem.setInfo(info);
+        return newItem;
+    }
 
-    // remove(index: number) {
-    //     const removedElem = this.elems.splice(index, 1)[0];
-    //     if (!removedElem) return;
-    //     this.element.removeChild(removedElem.getElement());
-    // }
+    push(info: object) {
+        const elem = this.create(info);
+        this.elems.push(elem);
+        this.element.appendChild(this.createContainer(elem));
+    }
 
-    // set(index: number, datum: Params) {
-    //     this.elems[index].setParams(datum);
-    // }
+    unshift(info: object) {
+        if (this.element.children.length > 0) {
+            const elem = this.create(info);
+            this.element.insertBefore(this.createContainer(elem), this.element.children[0]);
+        } else {
+            this.push(info);
+        }
+    }
+
+    remove(index: number) {
+        if (index >= this.elems.length) return;
+        const removedElem = this.elems.splice(index, 1)[0];
+        const removedElement = removedElem.getElement();
+        let liElement;
+        for (let element of [].slice.call(this.element.children)) {
+            if (element.children[0] === removedElement) {
+                liElement = element;
+                break;
+            }
+        }
+        this.element.removeChild(liElement);
+    }
+
+    setInfo(index: number, info: object) {
+        this.elems[index].setInfo(info);
+    }
 }

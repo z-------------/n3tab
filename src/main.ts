@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     new WidgetElem(new WeatherElem(), 1, "Weather").appendTo(container);
 
     const topSites = await browser.topSites.get();
-    const list = new ListElem<SiteCardElem>(false, SiteCardElem);
+    const list = new ListElem(false, SiteCardElem);
     for (let info of topSites) {
         list.push(info);
     }
