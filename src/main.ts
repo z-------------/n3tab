@@ -1,7 +1,8 @@
-import SiteCardsListElem from "./elem/siteCardsListElem";
-import WidgetElem from "./elem/widgetElem";
+import ListElem from "../lib/elem/listElem";
 import ClockElem from "./elem/clockElem";
+import SiteCardElem from "./elem/siteCardElem";
 import WeatherElem from "./elem/weatherElem";
+import WidgetElem from "./elem/widgetElem";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const container = document.getElementById("widgets-container");
@@ -9,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     new WidgetElem(new WeatherElem(), 1, "Weather").appendTo(container);
 
     const topSites = await browser.topSites.get();
-    const list = new SiteCardsListElem();
+    const list = new ListElem<SiteCardElem>(false, SiteCardElem);
     for (let info of topSites) {
         list.push(info);
     }

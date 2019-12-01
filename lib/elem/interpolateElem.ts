@@ -1,8 +1,17 @@
 import Elem from "./elem";
 
 export interface Params {
-    [key: string]: string | number;
+    [key: string]: string | number,
 }
+
+type AttrDict = {
+    [attr: string]: string,
+}
+
+export type TemplateWithAttrs = [
+    AttrDict,
+    string,
+]
 
 /**
  * TODO: refactor the interpolation algorithm so that not the whole innerHTML needs to be replaced.
@@ -13,23 +22,37 @@ export interface Params {
 export default abstract class InterpolateElem extends Elem {
     private params: Params = {};
     private template: string;
+    private attrsTemplate: AttrDict;
 
-    constructor(template: string) {
+    constructor(template: string | TemplateWithAttrs) {
         super();
-        this.template = template;
+        if (typeof template === "string") {
+            this.template = template;
+        } else {
+            this.attrsTemplate = template[0];
+            this.template = template[1];
+        }
     }
 
     private escapeRegEx(str: string): string {
-        // https://stackoverflow.com/a/6969486
-        return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // https://stackoverflow.com/a/6969486
+    }
+
+    private stringInterpolate(template: string, params: Params) {
+        let result: string = template;
+        for (let key in params) {
+            result = result.replace(new RegExp(this.escapeRegEx(`\${${key}}`), "g"), params[key].toString());
+        }
+        return result;
     }
 
     private interpolate() {
-        let result: string = this.template;
-        for (let key in this.params) {
-            result = result.replace(new RegExp(this.escapeRegEx(`\${${key}}`), "g"), this.params[key].toString());
+        this.element.innerHTML = this.stringInterpolate(this.template, this.params);
+        if (this.attrsTemplate) {
+            for (let attr in this.attrsTemplate) {
+                this.element.setAttribute(attr, this.stringInterpolate(this.attrsTemplate[attr], this.params));
+            }
         }
-        this.element.innerHTML = result;
     }
 
     setParams(params: Params) {

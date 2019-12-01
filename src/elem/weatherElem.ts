@@ -1,7 +1,13 @@
-import InterpolateElem from "../../lib/elem/interpolateElem";
+import InterpolateElem, { Params } from "../../lib/elem/interpolateElem";
+import InfoElem from "../../lib/elem/infoElem";
 import pmx from "../../lib/pmx";
 
-export default class WeatherElem extends InterpolateElem {
+type WeatherInfo = {
+    temperature: number,
+    summary: string
+}
+
+export default class WeatherElem extends InfoElem {
     private static REQUEST_URL = "https://nntp-server-redux.netlify.com/.netlify/functions/wx";
 
     constructor() {
@@ -15,11 +21,18 @@ export default class WeatherElem extends InterpolateElem {
         this.update();
     }
 
+    setInfo(info: WeatherInfo) {
+        this.setParams({
+            temperature: Math.round(info.temperature),
+            summary: info.summary
+        });
+    }
+
     private async update() {
         const res = await fetch(WeatherElem.REQUEST_URL);
         const weather = (await res.json()).weather.currently;
-        this.setParams({
-            temperature: Math.round(weather.temperature),
+        this.setInfo({
+            temperature: weather.temperature,
             summary: weather.summary
         });
     }

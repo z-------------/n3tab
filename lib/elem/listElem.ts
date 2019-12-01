@@ -1,11 +1,12 @@
 import pmx from "../../lib/pmx";
 import Elem from "./elem";
-import InterpolateElem, { Params } from "./interpolateElem";
+import { Params } from "./interpolateElem";
+import InfoElem from "./infoElem";
 
-export default abstract class ListElem extends Elem {
-    private elems: InterpolateElem[] = [];
+export default class ListElem<T extends InfoElem> extends Elem {
+    private elems: InfoElem[] = [];
 
-    constructor(ordered: boolean = false) {
+    constructor(ordered: boolean = false, private c: new () => T) {
         super();
         this.element = pmx(ordered ? "ol" : "ul");
     }
@@ -17,29 +18,27 @@ export default abstract class ListElem extends Elem {
     //     }
     // }
 
-    getAll(): Params[] {
-        return this.elems.map(elem => elem.getParams());
+    // getAll(): Params[] {
+    //     return this.elems.map(elem => elem.getParams());
+    // }
+
+    push(info: object): void {
+        const newItem = new this.c();
+        newItem.setInfo(info);
+        this.elems.push(newItem);
+
+        const liElement = document.createElement("li");
+        newItem.appendTo(liElement);
+        this.element.appendChild(liElement);
     }
 
-    protected pushElem(elem: InterpolateElem) {
-        this.elems.push(elem);
-        elem.appendTo(this.element);
-    }
+    // unshift(o: object): void;
 
-    protected unshiftElem(elem: InterpolateElem) {
-        this.elems.unshift(elem);
-        elem.appendToHead(this.element);
-    }
-
-    abstract push(o: object): void;
-
-    abstract unshift(o: object): void;
-
-    remove(index: number) {
-        const removedElem = this.elems.splice(index, 1)[0];
-        if (!removedElem) return;
-        this.element.removeChild(removedElem.getElement());
-    }
+    // remove(index: number) {
+    //     const removedElem = this.elems.splice(index, 1)[0];
+    //     if (!removedElem) return;
+    //     this.element.removeChild(removedElem.getElement());
+    // }
 
     // set(index: number, datum: Params) {
     //     this.elems[index].setParams(datum);
