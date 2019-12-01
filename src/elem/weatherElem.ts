@@ -30,7 +30,6 @@ export default class WeatherElem extends InfoElem {
 
     private async update() {
         const res = await get(WeatherElem.REQUEST_URL, {
-            timeout: TIME_HOUR / 2,
             json: true,
         });
         const weather = res.weather.currently;

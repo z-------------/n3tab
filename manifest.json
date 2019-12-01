@@ -6,7 +6,8 @@
     "permissions": [
         "topSites",
         "storage",
-        "https://nntp-server-redux.netlify.com/*"
+        "https://nntp-server-redux.netlify.com/*",
+        "https://rss.weather.gov.hk/rss/WeatherWarningSummaryv2.xml"
     ],
     "chrome_url_overrides": {
         "newtab": "dist/index.html"

@@ -3,6 +3,7 @@ import ClockElem from "./elem/clockElem";
 import SiteCardElem from "./elem/siteCardElem";
 import WeatherElem from "./elem/weatherElem";
 import WidgetElem from "./elem/widgetElem";
+import HKRegionalWeatherInfo from "./regionalWeatherInfo/hkRegionalWeatherInfo";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const container = document.getElementById("widgets-container");
@@ -17,4 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     new WidgetElem(list, 1, "Top Sites").appendTo(container);
 
     new WidgetElem(new ClockElem(), 1).appendTo(container);
+
+    const hkrwx = new HKRegionalWeatherInfo();
+    console.log(await hkrwx.getInfo());
 });
