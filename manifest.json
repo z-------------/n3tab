@@ -5,6 +5,7 @@
     "version": "0.0.0",
     "permissions": [
         "topSites",
+        "storage",
         "https://nntp-server-redux.netlify.com/*"
     ],
     "chrome_url_overrides": {

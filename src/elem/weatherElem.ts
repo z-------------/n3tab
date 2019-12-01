@@ -1,6 +1,6 @@
-import InterpolateElem, { Params } from "../../lib/elem/interpolateElem";
 import InfoElem from "../../lib/elem/infoElem";
 import pmx from "../../lib/pmx";
+import get, { TIME_HOUR } from "../../lib/get";
 
 type WeatherInfo = {
     temperature: number,
@@ -29,8 +29,11 @@ export default class WeatherElem extends InfoElem {
     }
 
     private async update() {
-        const res = await fetch(WeatherElem.REQUEST_URL);
-        const weather = (await res.json()).weather.currently;
+        const res = await get(WeatherElem.REQUEST_URL, {
+            timeout: TIME_HOUR / 2,
+            json: true,
+        });
+        const weather = res.weather.currently;
         this.setInfo({
             temperature: weather.temperature,
             summary: weather.summary
