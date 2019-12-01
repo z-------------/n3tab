@@ -57,6 +57,7 @@ export default abstract class InterpolateElem extends Elem {
 
     setParams(params: Params) {
         for (let key in params) {
+            if (typeof params[key] === "undefined") continue;
             this.params[key] = params[key];
         }
         this.interpolate();
