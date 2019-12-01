@@ -10,10 +10,13 @@
         "https://rss.weather.gov.hk/rss/WeatherWarningSummaryv2.xml"
     ],
     "chrome_url_overrides": {
-        "newtab": "dist/index.html"
+        "newtab": "dist/main/index.html"
     },
     "chrome_settings_overrides": {
-        "homepage": "dist/index.html"
+        "homepage": "dist/main/index.html"
+    },
+    "options_ui": {
+        "page": "dist/options/index.html"
     },
     "browser_specific_settings": {
         "gecko": {
