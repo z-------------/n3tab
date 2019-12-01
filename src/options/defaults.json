@@ -1,0 +1,13 @@
+{
+    "_format": 0,
+    
+    "defaults": {
+        "widget": [{
+            "type": "weather"
+        }, {
+            "type": "top_sites"
+        }, {
+            "type": "clock"
+        }]
+    }
+}

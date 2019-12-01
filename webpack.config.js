@@ -6,7 +6,7 @@ module.exports = {
     mode: "development",
     entry: {
         "main": ["./src/main.ts", "./src/index.pug", "./src/style.sass"],
-        "options": ["./src/options/index.pug", "./src/options/style.sass"]
+        "options": ["./src/options/options.ts", "./src/options/index.pug", "./src/options/style.sass"]
     },
     devtool: "inline-source-map",
     plugins: [
@@ -18,7 +18,8 @@ module.exports = {
         new HtmlWebpackPlugin({
             chunks: ["options"],
             filename: "./dist/options/index.html",
-            template: "./src/options/index.pug"
+            template: "./src/options/index.pug",
+            inject: false
         }),
         new MiniCssExtractPlugin({
             filename: "./dist/[name]/style.css",
