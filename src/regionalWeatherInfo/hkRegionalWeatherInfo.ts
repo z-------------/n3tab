@@ -36,8 +36,12 @@ export default class HKRegionalWeatherInfo implements IRegionalWeatherInfo {
             }),
         });
         const doc = parseXML(xml);
-        const titleStr = doc.querySelector("item:first-of-type > title").textContent;
+        const itemNode = doc.querySelector("item:first-of-type > title");
+        if (!itemNode) return null;
+
+        const titleStr = itemNode.textContent;
         const warningStr = titleStr.substring(0, titleStr.indexOf(" issued"));
+        if (!warningStr) return null;
         const warningKey = warningStr.toLowerCase();
         const icon = `${ASSETS_PATH}/hk/${iconMap.get(warningKey)}.png`;
         return {
