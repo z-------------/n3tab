@@ -1,24 +1,28 @@
+enum TimerType { INTERVAL, TIMEOUT }
+
 export default class Timer {
     private timerId: number | undefined;
 
     constructor(private fn: Function, private interval: number, private that: any) {}
 
     start() {
-        const that = this.that;
-        this.timerId = window.setInterval(() => {
-            this.fn.call(that);
-        }, this.interval);
+        this.do(TimerType.INTERVAL);
+    }
+
+    once() {
+        this.do(TimerType.TIMEOUT);
     }
 
     stop() {
         if (typeof this.timerId === "undefined") throw new Error("Timer not running.");
-        clearInterval(this.timerId);
+        window.clearInterval(this.timerId);
         this.timerId = undefined;
     }
 
-    once() {
+    private do(type: TimerType) {
         const that = this.that;
-        this.timerId = window.setTimeout(() => {
+        const method = type === TimerType.INTERVAL ? "setInterval" : "setTimeout";
+        this.timerId = window[method](() => {
             this.fn.call(that);
         }, this.interval);
     }
