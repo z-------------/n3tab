@@ -50,11 +50,11 @@ export async function getIcons(d: Document, url: string): Promise<string[]> {
 
     // apple-touch-icon
     const appleTouchIconEls = qsa(d.head, "link[rel='apple-touch-icon'][href]");
-    icons.push(...appleTouchIconEls.map(el => el.getAttribute("href")));
+    icons.push(...appleTouchIconEls.map(el => resolve(url, el.getAttribute("href"))));
 
     // shortcut icon
     const shortcutIconEls = qsa(d.head, "link[rel='shortcut icon'][href]");
-    icons.push(...shortcutIconEls.map(el => el.getAttribute("href")));
+    icons.push(...shortcutIconEls.map(el => resolve(url, el.getAttribute("href"))));
 
     return icons;
 }
