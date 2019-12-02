@@ -41,7 +41,7 @@ export default class HKRegionalWeather implements IRegionalWeather {
         });
         const doc = parseXML(xml);
         const titleNodes = [].slice.call(doc.querySelectorAll("item > title"));
-        if (titleNodes.length === 0) return null;
+        if (titleNodes.length === 0) return [];
 
         for (let titleNode of titleNodes) {
             const titleStr = titleNode.textContent;
