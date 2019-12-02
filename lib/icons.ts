@@ -23,7 +23,7 @@ export async function getIcons(d: Document, url: string): Promise<string[]> {
         if ("icons" in manifest) {
             for (let icon of manifest["icons"]) {
                 manifestIcons.push({
-                    url: icon.src,
+                    url: resolve(url, icon.src),
                     size: getSize(icon.sizes),
                 });
             }
@@ -51,6 +51,10 @@ export async function getIcons(d: Document, url: string): Promise<string[]> {
     // apple-touch-icon
     const appleTouchIconEls = qsa(d.head, "link[rel='apple-touch-icon'][href]");
     icons.push(...appleTouchIconEls.map(el => el.getAttribute("href")));
+
+    // shortcut icon
+    const shortcutIconEls = qsa(d.head, "link[rel='shortcut icon'][href]");
+    icons.push(...shortcutIconEls.map(el => el.getAttribute("href")));
 
     return icons;
 }

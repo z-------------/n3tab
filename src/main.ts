@@ -16,6 +16,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     }, {
         title: "YouTube",
         url: "https://youtube.com"
+    }, {
+        title: "Messenger",
+        url: "https://messenger.com"
+    }, {
+        title: "Google Drive",
+        url: "https://drive.google.com"
     }]);
     new WidgetElem(launcherElem, 2).appendTo(container);
 
