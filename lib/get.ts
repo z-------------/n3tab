@@ -19,28 +19,30 @@ function makeCacheKey(subkey: string) {
     return `${CACHE_NS}_${subkey}`;
 }
 
-export async function cacheAdd(subkey: string, data: any) {
-    const cacheEntry = {
-        data,
-        time: Date.now()
-    };
-    await store.set({
-        [makeCacheKey(subkey)]: cacheEntry
-    });
-}
-
-export async function cacheGet(subkey: string, timeout: number) {
-    const r = await store.get(makeCacheKey(subkey));
-    const cacheKey = makeCacheKey(subkey);
-    if (cacheKey in r && Date.now() - r[cacheKey].time < timeout)
-        return r[cacheKey].data;
-    else
-        throw new Error("Not found");
+export namespace Cache {
+    export async function add(subkey: string, data: any) {
+        const cacheEntry = {
+            data,
+            time: Date.now()
+        };
+        await store.set({
+            [makeCacheKey(subkey)]: cacheEntry
+        });
+    }
+    
+    export async function get(subkey: string, timeout: number) {
+        const r = await store.get(makeCacheKey(subkey));
+        const cacheKey = makeCacheKey(subkey);
+        if (cacheKey in r && Date.now() - r[cacheKey].time < timeout)
+            return r[cacheKey].data;
+        else
+            throw new Error("Not found");
+    }
 }
 
 export default async function get(url: string, options?: GetOptions) {
     try {
-        return await cacheGet(url, options?.timeout || CACHE_DEFAULT_TIMEOUT);
+        return await Cache.get(url, options?.timeout || CACHE_DEFAULT_TIMEOUT);
     } catch (exp) {
         const body = await fetch(url, {
             ...options?.headers && {
@@ -52,7 +54,7 @@ export default async function get(url: string, options?: GetOptions) {
         if (options?.json) data = await body.json();
         else data = await body.text();
         
-        await cacheAdd(url, data);
+        await Cache.add(url, data);
         return data;
     }
 }

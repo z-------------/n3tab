@@ -2,7 +2,7 @@ import ListElem from "../../lib/elem/listElem";
 import InfoElem from "../../lib/elem/infoElem";
 import pmx from "../../lib/pmx";
 import { fetchIcons } from "../../lib/icons";
-import { cacheAdd, cacheGet, TIME_DAY } from "../../lib/get";
+import { Cache, TIME_DAY } from "../../lib/get";
 
 type LauncherItem = {
     title: string,
@@ -33,10 +33,10 @@ class LauncherItemElem extends InfoElem {
         const key = `siteicon_${info.url}`;
         let iconURL;
         try {
-            iconURL = await cacheGet(key, TIME_DAY);
+            iconURL = await Cache.get(key, TIME_DAY);
         } catch (exp) {
             iconURL = (await fetchIcons(info.url))[0];
-            cacheAdd(key, iconURL);
+            Cache.add(key, iconURL);
         }
         this.setParams({
             icon: iconURL
