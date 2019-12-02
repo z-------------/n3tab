@@ -13,6 +13,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const launcherElem = new LauncherElem([{
         title: "GitHub",
         url: "https://github.com"
+    }, {
+        title: "YouTube",
+        url: "https://youtube.com"
     }]);
     new WidgetElem(launcherElem, 2).appendTo(container);
 
@@ -24,7 +27,4 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const hkrwx = new HKRegionalWeatherInfo();
     console.log(await hkrwx.getInfo());
-
-    const icons = await fetchIcons("https://github.com");
-    console.log(icons);
 });

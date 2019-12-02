@@ -1,5 +1,10 @@
 import { parseHTML } from "./parse";
 
+type IconInfo = {
+    url: string,
+    size: number,
+}
+
 export async function fetchIcons(url: string): Promise<string[]> {
     const html = await fetch(url).then(res => res.text());
     const doc = parseHTML(html);
@@ -19,13 +24,27 @@ export async function getIcons(d: Document, url: string): Promise<string[]> {
             for (let icon of manifest["icons"]) {
                 manifestIcons.push({
                     url: icon.src,
-                    size: Number(icon.sizes.split("x")[0]),
+                    size: getSize(icon.sizes),
                 });
             }
             if (manifestIcons.length > 0) {
-                manifestIcons.sort((a, b) => b.size - a.size);
-                return manifestIcons.map(icon => icon.url);
+                return getURLs(sortIcons(manifestIcons));
             }
+        }
+    }
+
+    // rel="icon"
+    const iconEls = qsa(d.head, "link[rel='icon'][href]");
+    if (iconEls.length > 0) {
+        const iconIcons = [];
+        for (let iconEl of iconEls) {
+            iconIcons.push({
+                url: resolve(url, iconEl.getAttribute("href")),
+                size: getSize(iconEl.getAttribute("sizes")),
+            });
+        }
+        if (iconIcons.length > 0) {
+            return getURLs(sortIcons(iconIcons));
         }
     }
 
@@ -42,4 +61,20 @@ function qs(element: HTMLElement, selector: string): HTMLElement {
 
 function qsa(element: HTMLElement, selector: string): HTMLElement[] {
     return [].slice.call(element.querySelectorAll(selector));
+}
+
+function resolve(baseURL: string, relURL: string): string {
+    return new URL(relURL, baseURL).href;
+}
+
+function sortIcons(icons: IconInfo[]): IconInfo[] {
+    return icons.sort((a, b) => b.size - a.size);
+}
+
+function getURLs(icons: IconInfo[]): string[] {
+    return icons.map(icon => icon.url);
+}
+
+function getSize(sizeStr: string): number {
+    return Number(sizeStr.split("x")[0]);
 }
