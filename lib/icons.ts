@@ -1,17 +1,49 @@
 export async function fetchIcons(url: string): Promise<string[]> {
     const html = await fetch(url).then(res => res.text());
     const doc = getDocument(html);
-    return getIcons(doc);
+    return getIcons(doc, url);
 }
 
-export function getIcons(d: Document): string[] {
+export async function getIcons(d: Document, url: string): Promise<string[]> {
     const icons = [];
-    icons.push(...[].slice.call(d.head.querySelectorAll("link[rel='apple-touch-icon'][href]")).map(el => el.getAttribute("href")));
+
+    // manifest
+    const manifestLinkEl = qs(d.head, "link[rel='manifest'][href]");
+    if (manifestLinkEl) {
+        const manifestURL = new URL(manifestLinkEl.getAttribute("href"), url).href;
+        const manifest = await fetch(manifestURL).then(res => res.json());
+        const manifestIcons = [];
+        if ("icons" in manifest) {
+            for (let icon of manifest["icons"]) {
+                manifestIcons.push({
+                    url: icon.src,
+                    size: Number(icon.sizes.split("x")[0]),
+                });
+            }
+            if (manifestIcons.length > 0) {
+                manifestIcons.sort((a, b) => b.size - a.size);
+                return manifestIcons.map(icon => icon.url);
+            }
+        }
+    }
+
+    // apple-touch-icon
+    const appleTouchIconEls = qsa(d.head, "link[rel='apple-touch-icon'][href]");
+    icons.push(...appleTouchIconEls.map(el => el.getAttribute("href")));
+
     return icons;
 }
 
 function getDocument(html: string): Document {
-    const d = document.implementation.createHTMLDocument();
-    d.documentElement.outerHTML = html;
+    const parser = new DOMParser();
+    const d = parser.parseFromString(html, "text/html");
     return d;
+}
+
+function qs(element: HTMLElement, selector: string): HTMLElement {
+    return element.querySelector(selector);
+}
+
+function qsa(element: HTMLElement, selector: string): HTMLElement[] {
+    return [].slice.call(element.querySelectorAll(selector));
 }

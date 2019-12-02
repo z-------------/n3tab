@@ -4,6 +4,8 @@ import WeatherElem from "./elem/weatherElem";
 import WidgetElem from "./elem/widgetElem";
 import HKRegionalWeatherInfo from "./regionalWeatherInfo/hkRegionalWeatherInfo";
 
+import { fetchIcons } from "../lib/icons";
+
 document.addEventListener("DOMContentLoaded", async () => {
     const container = document.getElementById("widgets-container");
 
@@ -15,4 +17,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     const hkrwx = new HKRegionalWeatherInfo();
     console.log(await hkrwx.getInfo());
+
+    const icons = await fetchIcons("https://github.com");
+    console.log(icons);
 });
