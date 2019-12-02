@@ -1,12 +1,13 @@
 const parser = new DOMParser();
 
+function parse(source: string, type: SupportedType) {
+    return parser.parseFromString(source, type);
+}
+
 export function parseHTML(html: string) {
-    const doc = document.implementation.createHTMLDocument();
-    doc.documentElement.outerHTML = html;
-    return doc;
+    return parse(html, "text/html");
 }
 
 export function parseXML(xml: string) {
-    const doc = parser.parseFromString(xml, "text/xml");
-    return doc;
+    return parse(xml, "text/xml");
 }

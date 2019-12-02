@@ -1,6 +1,8 @@
+import { parseHTML } from "./parse";
+
 export async function fetchIcons(url: string): Promise<string[]> {
     const html = await fetch(url).then(res => res.text());
-    const doc = getDocument(html);
+    const doc = parseHTML(html);
     return getIcons(doc, url);
 }
 
@@ -32,12 +34,6 @@ export async function getIcons(d: Document, url: string): Promise<string[]> {
     icons.push(...appleTouchIconEls.map(el => el.getAttribute("href")));
 
     return icons;
-}
-
-function getDocument(html: string): Document {
-    const parser = new DOMParser();
-    const d = parser.parseFromString(html, "text/html");
-    return d;
 }
 
 function qs(element: HTMLElement, selector: string): HTMLElement {
