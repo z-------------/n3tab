@@ -48,18 +48,13 @@ li
 
 .widget
     overflow: hidden
+    padding: 0 4px
 
     &.widget--width-2
         width: 100%
     
     &.widget--width-1
         width: 50%
-
-        &:nth-of-type(2n)
-            padding-left: 8px
-
-        &:nth-of-type(2n + 1)
-            padding-right: 8px
     
     @for $i from 1 through 3
         h#{$i}
@@ -100,3 +95,12 @@ li
     
     .weather_info--summary
         @include text-size-medium
+
+.launcher_item
+    display: inline-block
+    width: 128px
+    height: 128px
+    background-color: $color-foreground
+    background-size: cover
+    background-position: center
+    background-repeat: no-repeat
