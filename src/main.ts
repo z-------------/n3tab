@@ -4,6 +4,7 @@ import WeatherElem from "./elem/weatherElem";
 import WidgetElem from "./elem/widgetElem";
 import LauncherElem from "./elem/launcherElem";
 import HKRegionalWeather from "./regionalWeather/hkRegionalWeather";
+import AURegionalWeather from "./regionalWeather/auRegionalWeather";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const container = document.getElementById("widgets-container");
@@ -30,5 +31,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     new WidgetElem(new ClockElem(), 1).appendTo(container);
 
     const hkrwx = new HKRegionalWeather();
-    console.log(await hkrwx.getInfo());
+    console.log("hk", await hkrwx.getInfo());
+
+    const auwarwx = new AURegionalWeather();
+    console.log("au-wa", await auwarwx.getInfo("wa"));
 });
