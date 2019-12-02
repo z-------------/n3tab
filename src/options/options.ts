@@ -5,7 +5,7 @@ const { _format, defaults } = require("./defaults.json");
 const editorElement = document.getElementById("editor") as HTMLTextAreaElement;
 
 (async () => {
-    const { userSettings } = await browser.storage.local.get("settings");
+    const { userSettings } = await browser.storage.sync.get("settings");
     const settings = Object.assign({}, defaults, userSettings);
 
     editorElement.value = TOML.stringify(settings);
