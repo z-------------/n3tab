@@ -2,6 +2,7 @@ import ListElem from "../../lib/elem/listElem";
 import InfoElem from "../../lib/elem/infoElem";
 import pmx from "../../lib/pmx";
 import { fetchIcons } from "../../lib/icons";
+import { cacheAdd, cacheGet, TIME_DAY } from "../../lib/get";
 
 type LauncherItem = {
     title: string,
@@ -28,8 +29,17 @@ class LauncherItemElem extends InfoElem {
             url: info.url,
             title: info.title,
         });
+
+        const key = `siteicon_${info.url}`;
+        let iconURL;
+        try {
+            iconURL = await cacheGet(key, TIME_DAY);
+        } catch (exp) {
+            iconURL = (await fetchIcons(info.url))[0];
+            cacheAdd(key, iconURL);
+        }
         this.setParams({
-            icon: (await fetchIcons(info.url))[0]
+            icon: iconURL
         });
     }
 }
