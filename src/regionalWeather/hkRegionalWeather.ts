@@ -32,23 +32,30 @@ export default class HKRegionalWeather implements IRegionalWeather {
     private static URL = "https://rss.weather.gov.hk/rss/WeatherWarningSummaryv2.xml";
 
     async getInfo() {
+        const r: RegionalWeatherInfo[] = [];
+
         const xml = await get(HKRegionalWeather.URL, {
             headers: new Headers({
                 "Accept": "text/xml",
             }),
         });
         const doc = parseXML(xml);
-        const itemNode = doc.querySelector("item:first-of-type > title");
-        if (!itemNode) return null;
+        const titleNodes = [].slice.call(doc.querySelectorAll("item > title"));
+        if (titleNodes.length === 0) return null;
 
-        const titleStr = itemNode.textContent;
-        const warningStr = titleStr.substring(0, titleStr.indexOf(" issued"));
-        if (!warningStr) return null;
-        const warningKey = warningStr.toLowerCase();
-        const icon = `${ASSETS_PATH}/hk/${iconMap.get(warningKey)}.${FILE_EXT}`;
-        return {
-            summary: warningStr,
-            icon
-        } as RegionalWeatherInfo;
+        for (let titleNode of titleNodes) {
+            const titleStr = titleNode.textContent;
+            const warningStr = titleStr.substring(0, titleStr.indexOf(" issued"));
+            if (!warningStr) continue;
+
+            const warningKey = warningStr.toLowerCase();
+            const icon = `${ASSETS_PATH}/hk/${iconMap.get(warningKey)}.${FILE_EXT}`;
+            r.push({
+                summary: warningStr,
+                icon
+            });
+        }
+
+        return r;
     }
 }

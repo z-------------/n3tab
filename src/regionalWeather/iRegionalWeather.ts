@@ -6,5 +6,5 @@ export type RegionalWeatherInfo = {
 }
 
 export default interface IRegionalWeather {
-    getInfo(region?: string): Promise<RegionalWeatherInfo>;
+    getInfo(region?: string): Promise<RegionalWeatherInfo[]>;
 }
