@@ -19,7 +19,6 @@ module.exports = {
             chunks: ["options"],
             filename: "./dist/options/index.html",
             template: "./src/options/index.pug",
-            inject: false
         }),
         new MiniCssExtractPlugin({
             filename: "./dist/[name]/style.css",
