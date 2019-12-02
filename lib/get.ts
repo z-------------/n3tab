@@ -19,19 +19,19 @@ function makeCacheKey(subkey: string) {
     return `${CACHE_NS}_${subkey}`;
 }
 
-export async function cacheAdd(url: string, data: any) {
+export async function cacheAdd(subkey: string, data: any) {
     const cacheEntry = {
         data,
         time: Date.now()
     };
     await store.set({
-        [makeCacheKey(url)]: cacheEntry
+        [makeCacheKey(subkey)]: cacheEntry
     });
 }
 
-export async function cacheGet(url: string, timeout: number) {
-    const r = await store.get(makeCacheKey(url));
-    const cacheKey = makeCacheKey(url);
+export async function cacheGet(subkey: string, timeout: number) {
+    const r = await store.get(makeCacheKey(subkey));
+    const cacheKey = makeCacheKey(subkey);
     if (cacheKey in r && Date.now() - r[cacheKey].time < timeout)
         return r[cacheKey].data;
     else
