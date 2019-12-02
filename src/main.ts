@@ -3,9 +3,7 @@ import TopSitesElem from "./elem/topSitesElem";
 import WeatherElem from "./elem/weatherElem";
 import WidgetElem from "./elem/widgetElem";
 import LauncherElem from "./elem/launcherElem";
-import HKRegionalWeatherInfo from "./regionalWeatherInfo/hkRegionalWeatherInfo";
-
-import { fetchIcons } from "../lib/icons";
+import HKRegionalWeather from "./regionalWeather/hkRegionalWeather";
 
 document.addEventListener("DOMContentLoaded", async () => {
     const container = document.getElementById("widgets-container");
@@ -31,6 +29,6 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     new WidgetElem(new ClockElem(), 1).appendTo(container);
 
-    const hkrwx = new HKRegionalWeatherInfo();
+    const hkrwx = new HKRegionalWeather();
     console.log(await hkrwx.getInfo());
 });
