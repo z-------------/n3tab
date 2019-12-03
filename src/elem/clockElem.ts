@@ -9,7 +9,9 @@ export default class ClockElem extends InterpolateElem {
             html: "<span class='clock_segment'>${h}</span><span class='clock_sep'>:</span><span class='clock_segment'>${m}</span><span class='clock_sep'>:</span><span class='clock_segment'>${s}</span>",
         }));
         this.update();
-        new Timer(this.update, 500, this).start();
+        new Timer(() => {
+            new Timer(this.update, 1000, this).doStart();
+        }, 1000 - new Date().getMilliseconds()).once();
     }
 
     private formatSegment(n: number) {
