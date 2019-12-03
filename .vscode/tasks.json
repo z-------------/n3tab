@@ -4,10 +4,12 @@
     "version": "2.0.0",
     "tasks": [
         {
+            "label": "Webpack watch",
             "type": "npm",
             "script": "watch",
             "group": "build",
             "isBackground": true,
+            "auto": true,
             "problemMatcher": [{
                 "fileLocation": "absolute",
                 "pattern": {
