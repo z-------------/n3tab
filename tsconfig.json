@@ -5,8 +5,6 @@
         "sourceMap": true,
         "module": "es6",
         "moduleResolution": "node",
-    },
-    "files": [
-        "src/main.ts"
-    ]
+        "target": "ES2015"
+    }
 }
