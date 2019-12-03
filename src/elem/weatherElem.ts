@@ -1,6 +1,7 @@
 import InfoElem from "../../lib/elem/infoElem";
 import pmx from "../../lib/pmx";
-import get, { TIME_HOUR } from "../../lib/get";
+import get from "../../lib/get";
+import IHideableElem from "./iSoftHideableElem";
 
 type WeatherInfo = {
     temperature: number,
@@ -25,42 +26,40 @@ const iconMap = new Map([
     ["partly-cloudy-night", "night-partly-cloudy"],
 ]);
 
-export default class WeatherElem extends InfoElem {
+export default class WeatherElem extends InfoElem implements IHideableElem {
     private static REQUEST_URL = "https://nntp-server-redux.netlify.com/.netlify/functions/wx";
 
     constructor() {
-        super([
-            {
-                href: "${url}",
-            },
-            pmx("div", {
-                children: [
-                    pmx("div", {
-                        classList: ["weather_top"],
-                        children: [
-                            pmx("i", { classList: ["weather_info--icon", "wi", "wi-${icon}"] }),
-                            pmx("div", { text: "${temperature}°", classList: ["weather_info--temperature"] }),
-                        ],
-                    }),
-                    pmx("div", {
-                        classList: ["weather_bottom"],
-                        children: [
-                            pmx("div", { text: "${summary}", classList: ["weather_info--summary"] }),
-                        ],
-                    }),
-                ]
-            }).innerHTML
-        ]);
-        this.element = pmx("a", {
+        super(pmx("a", {
             attrs: {
                 target: "_blank",
+                href: "${url}",
             },
             classList: ["card", "weather", "plain-anchor"],
-        });
+            children: [
+                pmx("div", {
+                    classList: ["weather_top"],
+                    children: [
+                        pmx("i", { classList: ["weather_info--icon", "wi", "wi-${icon}"] }),
+                        pmx("div", { text: "${temperature}°", classList: ["weather_info--temperature"] }),
+                    ],
+                }),
+                pmx("div", {
+                    classList: ["weather_bottom"],
+                    children: [
+                        pmx("div", { text: "${summary}", classList: ["weather_info--summary"] }),
+                    ],
+                }),
+            ]
+        }));
+
         this.setParams({
             url: EXTERNAL_URL,
         });
-        this.update();
+        this.hide();
+        this.update().then(() => {
+            this.show()
+        });
     }
 
     setInfo(info: WeatherInfo) {
@@ -70,6 +69,14 @@ export default class WeatherElem extends InfoElem {
             icon: iconMap.get(info.icon) || ICON_DEFAULT,
             url: `${EXTERNAL_URL}/${info.location[0]},${info.location[1]}`,
         });
+    }
+
+    hide() {
+        this.element.style.color = "white";
+    }
+
+    show() {
+        this.element.style.color = null;
     }
 
     private async update() {

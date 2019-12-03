@@ -4,10 +4,10 @@ import Timer from "../../lib/timer";
 
 export default class ClockElem extends InterpolateElem {
     constructor() {
-        super("<span class='clock_segment'>${h}</span><span class='clock_sep'>:</span><span class='clock_segment'>${m}</span><span class='clock_sep'>:</span><span class='clock_segment'>${s}</span>");
-        this.element = pmx("div", {
-            classList: ["card", "clock"]
-        });
+        super(pmx("div", {
+            classList: ["card", "clock"],
+            html: "<span class='clock_segment'>${h}</span><span class='clock_sep'>:</span><span class='clock_segment'>${m}</span><span class='clock_sep'>:</span><span class='clock_segment'>${s}</span>",
+        }));
         this.update();
         new Timer(this.update, 500, this).start();
     }

@@ -11,17 +11,14 @@ type LauncherItem = {
 
 class LauncherItemElem extends InfoElem {
     constructor() {
-        super([
-            {
+        super(pmx("a", {
+            attrs: {
                 href: "${url}",
                 title: "${title}",
                 style: "background-image: url('${icon}')",
             },
-            "",
-        ]);
-        this.element = pmx("a", {
-            classList: ["launcher_item"]
-        });
+            classList: ["launcher_item"],
+        }));
     }
 
     async setInfo(info: LauncherItem) {

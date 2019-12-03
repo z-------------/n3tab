@@ -1,8 +1,8 @@
-import InterpolateElem, { TemplateWithAttrs } from "./interpolateElem";
+import InterpolateElem from "./interpolateElem";
 
 export default abstract class InfoElem extends InterpolateElem {
-    constructor(template: string | TemplateWithAttrs) {
-        super(template);
+    constructor(element: HTMLElement) {
+        super(element);
     }
 
     abstract setInfo(info: object): void;

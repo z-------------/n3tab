@@ -6,16 +6,14 @@ export type SiteInfo = browser.topSites.MostVisitedURL;
 
 export default class SiteCardElem extends InfoElem {
     constructor() {
-        super([
-            {
+        super(pmx("a", {
+            attrs: {
                 href: "${url}",
                 title: "${tooltip}",
             },
-            "<span>${heading}</span>",
-        ]);
-        this.element = pmx("a", {
-            classList: ["chip", "plain-anchor"]
-        });
+            classList: ["chip", "plain-anchor"],
+            html: "<span>${heading}</span>",
+        }));
     }
 
     setInfo(info: SiteInfo) {

@@ -4,14 +4,7 @@ export interface Params {
     [key: string]: string | number,
 }
 
-type AttrDict = {
-    [attr: string]: string,
-}
-
-export type TemplateWithAttrs = [
-    AttrDict,
-    string,
-]
+const ATTR_ORIG_PRE = "attributeOrig";
 
 /**
  * TODO: refactor the interpolation algorithm so that not the whole innerHTML needs to be replaced.
@@ -21,37 +14,26 @@ export type TemplateWithAttrs = [
  */
 export default abstract class InterpolateElem extends Elem {
     private params: Params = {};
+    private origAttrs = new Map();
     private template: string;
-    private attrsTemplate: AttrDict;
 
-    constructor(template: string | TemplateWithAttrs) {
+    constructor(element: HTMLElement) {
         super();
-        if (typeof template === "string") {
-            this.template = template;
-        } else {
-            this.attrsTemplate = template[0];
-            this.template = template[1];
+        this.element = element;
+        this.template = element.innerHTML;
+        for (let attr of this.element.getAttributeNames()) {
+            this.origAttrs.set(attr, this.element.getAttribute(attr));
         }
-    }
-
-    private escapeRegEx(str: string): string {
-        return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // https://stackoverflow.com/a/6969486
-    }
-
-    private stringInterpolate(template: string, params: Params) {
-        let result: string = template;
-        for (let key in params) {
-            result = result.replace(new RegExp(this.escapeRegEx(`\${${key}}`), "g"), params[key].toString());
-        }
-        return result;
     }
 
     private interpolate() {
-        this.element.innerHTML = this.stringInterpolate(this.template, this.params);
-        if (this.attrsTemplate) {
-            for (let attr in this.attrsTemplate) {
-                this.element.setAttribute(attr, this.stringInterpolate(this.attrsTemplate[attr], this.params));
-            }
+        this.element.innerHTML = stringInterpolate(this.template, this.params);
+
+        for (let attr of this.element.getAttributeNames()) {
+            if (!this.origAttrs.has(attr)) continue;
+            const orig = this.origAttrs.get(attr);
+            const val = stringInterpolate(orig, this.params);
+            this.element.setAttribute(attr, val);
         }
     }
 
@@ -66,8 +48,16 @@ export default abstract class InterpolateElem extends Elem {
     getParams(): Params {
         return this.params;
     }
+}
 
-    setTemplate(template: string) {
-        this.template = template;
+function escapeRegEx(str: string): string {
+    return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // https://stackoverflow.com/a/6969486
+}
+
+function stringInterpolate(template: string, params: Params) {
+    let result = template;
+    for (let key in params) {
+        result = result.replace(new RegExp(escapeRegEx(`\${${key}}`), "g"), params[key].toString());
     }
+    return result;
 }
