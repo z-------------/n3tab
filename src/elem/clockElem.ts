@@ -1,6 +1,6 @@
-import InterpolateElem from "../../lib/elem/interpolateElem";
-import pmx from "../../lib/pmx";
-import Timer from "../../lib/timer";
+import InterpolateElem from "lib/elem/interpolateElem";
+import pmx from "lib/pmx";
+import Timer from "lib/timer";
 
 export default class ClockElem extends InterpolateElem {
     constructor() {

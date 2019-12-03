@@ -1,6 +1,6 @@
-import InfoElem from "../../lib/elem/infoElem";
-import pmx from "../../lib/pmx";
-import get from "../../lib/get";
+import InfoElem from "lib/elem/infoElem";
+import pmx from "lib/pmx";
+import get from "lib/get";
 import IHideableElem from "./iSoftHideableElem";
 
 type WeatherInfo = {

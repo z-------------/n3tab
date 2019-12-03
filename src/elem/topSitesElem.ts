@@ -1,4 +1,4 @@
-import ListElem from "../../lib/elem/listElem";
+import ListElem from "lib/elem/listElem";
 import SiteCardElem from "./siteCardElem";
 
 export default class TopSitesElem extends ListElem {

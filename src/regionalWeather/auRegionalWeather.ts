@@ -1,5 +1,5 @@
-import get from "../../lib/get";
-import { parseXML } from "../../lib/parse";
+import get from "lib/get";
+import { parseXML } from "lib/parse";
 import IRegionalWeather, { RegionalWeatherInfo } from "./iRegionalWeather";
 
 const feedsMap = new Map([

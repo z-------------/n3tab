@@ -1,6 +1,6 @@
-import Elem from "../../lib/elem/elem";
-import InfoElem from "../../lib/elem/infoElem";
-import pmx from "../../lib/pmx";
+import Elem from "lib/elem/elem";
+import InfoElem from "lib/elem/infoElem";
+import pmx from "lib/pmx";
 
 export type SiteInfo = browser.topSites.MostVisitedURL;
 

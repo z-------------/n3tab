@@ -1,4 +1,4 @@
-import pmx from "../../lib/pmx";
+import pmx from "lib/pmx";
 import TextElem from "./textElem";
 
 export default class HeadingElem extends TextElem {

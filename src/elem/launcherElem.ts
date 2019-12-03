@@ -1,8 +1,8 @@
-import ListElem from "../../lib/elem/listElem";
-import InfoElem from "../../lib/elem/infoElem";
-import pmx from "../../lib/pmx";
-import { fetchIcons } from "../../lib/icons";
-import { Cache, TIME_DAY } from "../../lib/get";
+import ListElem from "lib/elem/listElem";
+import InfoElem from "lib/elem/infoElem";
+import pmx from "lib/pmx";
+import { fetchIcons } from "lib/icons";
+import { Cache, TIME_DAY } from "lib/get";
 
 type LauncherItem = {
     title: string,
