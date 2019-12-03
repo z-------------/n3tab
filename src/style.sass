@@ -90,11 +90,21 @@ li
     text-align: center
 
 .weather
-    .weather_info--temperature
+    padding-bottom: 1.5em
+
+    .weather_top
         @include text-size-big
+        display: flex
+        align-items: baseline
     
-    .weather_info--summary
+    .weather_info--icon
+        width: 80px
+        text-align: center
+        margin-right: 0.1em
+    
+    .weather_bottom
         @include text-size-medium
+        margin-left: calc(80px + 0.1em * 5 / 2)
 
 .launcher_item
     display: inline-block
