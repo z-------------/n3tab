@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "build": "webpack",
-    "watch": "webpack --watch"
+    "watch": "webpack --watch --build-delimiter=\"### end build output ###\""
   },
   "devDependencies": {
     "@types/firefox-webext-browser": "^70.0.1",

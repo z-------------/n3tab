@@ -5,16 +5,38 @@
     "tasks": [
         {
             "type": "npm",
-            "script": "build",
-            "group": "build",
-            "problemMatcher": []
-        },
-        {
-            "type": "npm",
             "script": "watch",
             "group": "build",
             "isBackground": true,
-            "problemMatcher": []
+            "problemMatcher": [{
+                "fileLocation": "absolute",
+                "pattern": {
+                    "regexp": "^Error: (.*):(\\d+):(\\d+)$",
+                    "file": 1,
+                    "line": 2,
+                    "column": 3,
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^Built at: \\d{2}\/\\d{2}\/\\d{4} \\d+:\\d{2}:\\d{2} [AP]M",
+                    "endsPattern": "^### end build output ###"
+                }
+            }, {
+                "fileLocation": "absolute",
+                "pattern": [{
+                    "regexp": "^SassError: (.*)$",
+                    "message": 1
+                }, {
+                    "regexp": "^\\s*on line (\\d+) of (.*)$",
+                    "line": 1,
+                    "file": 2
+                }],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^Built at: \\d{2}\/\\d{2}\/\\d{4} \\d+:\\d{2}:\\d{2} [AP]M",
+                    "endsPattern": "^### end build output ###"
+                }
+            }]
         }
     ]
 }
