@@ -12,7 +12,9 @@ export default class SiteCardElem extends InfoElem {
                 title: "${tooltip}",
             },
             classList: ["chip", "plain-anchor"],
-            html: "<span>${heading}</span>",
+            children: [
+                pmx("span", { text: "${heading}" }),
+            ],
         }));
     }
 
