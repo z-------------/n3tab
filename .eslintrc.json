@@ -4,7 +4,10 @@
         "sourceType": "module"
     },
     "plugins": ["@typescript-eslint"],
-    "extends": "eslint:recommended",
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended"
+    ],
     "env": {
         "es6": true,
         "browser": true,
@@ -16,6 +19,11 @@
 
         "no-unused-vars": 0,
         "@typescript-eslint/no-unused-vars": "error",
+
+        "@typescript-eslint/no-explicit-any": 0,
+        "@typescript-eslint/no-use-before-define": 0,
+        "@typescript-eslint/explicit-function-return-type": 0,
+        "@typescript-eslint/no-namespace": 0,
 
         "indent": ["error", 4],
         "quotes": ["error", "double"],
