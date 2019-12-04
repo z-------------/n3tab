@@ -1,6 +1,6 @@
-import Elem from "lib/elem/elem";
 import InfoElem from "lib/elem/infoElem";
 import pmx from "lib/pmx";
+import { escape } from "lib/html";
 
 export type SiteInfo = browser.topSites.MostVisitedURL;
 
@@ -22,7 +22,7 @@ export default class SiteCardElem extends InfoElem {
         this.setParams({
             url: info.url,
             tooltip: info.url,
-            heading: info.title ? Elem.escape(info.title) : this.getSimpleURL(info.url),
+            heading: info.title ? escape(info.title) : this.getSimpleURL(info.url),
         });
     }
 

@@ -1,18 +1,6 @@
 export default abstract class Elem {
     protected element: HTMLElement;
 
-    static sanitize(html: string) {
-        const d = document.createElement("div");
-        d.innerHTML = html;
-        return d.textContent;
-    }
-
-    static escape(text: string) {
-        const d = document.createElement("div");
-        d.textContent = text;
-        return d.innerHTML;
-    }
-
     getElement(): HTMLElement {
         return this.element;
     }
