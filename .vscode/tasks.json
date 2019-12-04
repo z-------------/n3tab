@@ -39,6 +39,12 @@
                     "endsPattern": "^### end build output ###"
                 }
             }]
+        },
+        {
+            "label": "ESLint",
+            "type": "npm",
+            "script": "lint",
+            "problemMatcher": ["$eslint-stylish"]
         }
     ]
 }

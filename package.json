@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "watch": "webpack --watch --build-delimiter=\"### end build output ###\""
+    "watch": "webpack --watch --build-delimiter=\"### end build output ###\"",
+    "lint": "eslint src/**/*.ts lib/**/*.ts"
   },
   "devDependencies": {
     "@types/firefox-webext-browser": "^70.0.1",
