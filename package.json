@@ -1,12 +1,15 @@
 {
   "scripts": {
     "watch": "webpack --watch --build-delimiter=\"### end build output ###\"",
-    "lint": "eslint src/**/*.ts lib/**/*.ts"
+    "lint": "eslint src/**/*.ts lib/**/*.ts",
+    "test": "tsc -P test && ava"
   },
   "devDependencies": {
     "@types/firefox-webext-browser": "^70.0.1",
     "@typescript-eslint/eslint-plugin": "^2.10.0",
     "@typescript-eslint/parser": "^2.10.0",
+    "ava": "^2.4.0",
+    "browser-env": "^3.3.0",
     "css-loader": "^3.2.0",
     "eslint": "^6.7.2",
     "html-webpack-plugin": "^3.2.0",
@@ -23,5 +26,10 @@
   },
   "dependencies": {
     "@iarna/toml": "^2.2.3"
-  }
+  },
+  "ava": {
+		"require": [
+			"./test/_setup-browser-env.js"
+		]
+	}
 }

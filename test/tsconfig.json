@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "module": "CommonJS",
+        "moduleResolution": "node",
+        "target": "ES2017",
+    },
+    "include": ["."],
+    "exclude": []
+}

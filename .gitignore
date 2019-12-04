@@ -3,4 +3,7 @@ web-ext-artifacts
 
 dist
 
+lib/**/*.js
+test/**/*.js
+
 *.swp
