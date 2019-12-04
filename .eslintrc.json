@@ -4,6 +4,10 @@
         "sourceType": "module"
     },
     "plugins": ["@typescript-eslint"],
+    "extends": "eslint:recommended",
+    "env": {
+        "browser": true
+    },
     "rules": {
         "indent": ["error", 4],
         "quotes": ["error", "double"]
