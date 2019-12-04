@@ -18,6 +18,18 @@
         "@typescript-eslint/no-unused-vars": "error",
 
         "indent": ["error", 4],
-        "quotes": ["error", "double"]
+        "quotes": ["error", "double"],
+        "eqeqeq": "error",
+        "no-caller": "error",
+        "no-eval": "error",
+        "no-implied-eval": "error",
+        "no-extend-native": "error",
+        "no-loop-func": "error",
+        "no-script-url": "error",
+        "no-useless-call": "error",
+        "no-useless-concat": "error",
+        "no-with": "error",
+        "wrap-iife": "error",
+        "yoda": ["error", "never"]
     }
   }
