@@ -38,6 +38,24 @@
                     "beginsPattern": "^Built at: \\d{2}\/\\d{2}\/\\d{4} \\d+:\\d{2}:\\d{2} [AP]M",
                     "endsPattern": "^### end build output ###"
                 }
+            }, {
+                "fileLocation": "absolute",
+                "pattern": [{
+                    "regexp": "^\\[tsl\\] (.*) in (.*)\\((\\d+),(\\d+)\\)$",
+                    "severity": 1,
+                    "file": 2,
+                    "line": 3,
+                    "column": 4
+                }, {
+                    "regexp": "^ {6}(.*): (.*)$",
+                    "code": 1,
+                    "message": 2
+                }],
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^Built at: \\d{2}\/\\d{2}\/\\d{4} \\d+:\\d{2}:\\d{2} [AP]M",
+                    "endsPattern": "^### end build output ###"
+                }
             }]
         },
         {
