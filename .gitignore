@@ -4,6 +4,11 @@ web-ext-artifacts
 dist
 
 lib/**/*.js
+lib/**/*.js.map
 test/**/*.js
+test/**/*.js.map
+
+.nyc_output
+coverage
 
 *.swp
