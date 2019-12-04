@@ -4,8 +4,6 @@ export interface Params {
     [key: string]: string | number,
 }
 
-const ATTR_ORIG_PRE = "attributeOrig";
-
 /**
  * TODO: refactor the interpolation algorithm so that not the whole innerHTML needs to be replaced.
  * i.e. upon construction, for each child in template, copy the relevant part of the template into an associated field (e.g. dataset or a private dictionary),

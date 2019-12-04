@@ -10,6 +10,6 @@ export default class ButtonElem extends TextElem {
 
     // signature from standard lib.dom.d.ts
     addEventListener<K extends keyof HTMLElementEventMap>(eventName: K, listener: (this: HTMLElement, e: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions) {
-        this.element.addEventListener(eventName, listener);
+        this.element.addEventListener(eventName, listener, options);
     }
 }

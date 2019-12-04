@@ -1,6 +1,5 @@
 import pmx from "lib/pmx";
 import Elem from "./elem";
-import { Params } from "./interpolateElem";
 import InfoElem from "./infoElem";
 
 export default class ListElem extends Elem {
