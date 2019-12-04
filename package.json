@@ -2,7 +2,7 @@
   "scripts": {
     "watch": "webpack --watch --build-delimiter=\"### end build output ###\"",
     "lint": "eslint src/**/*.ts lib/**/*.ts",
-    "test": "tsc -P test && nyc --reporter=lcov ava"
+    "test": "tsc -P test && nyc ava"
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^0.1.3",
