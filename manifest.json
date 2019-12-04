@@ -12,9 +12,6 @@
     "chrome_url_overrides": {
         "newtab": "dist/main/index.html"
     },
-    "chrome_settings_overrides": {
-        "homepage": "dist/main/index.html"
-    },
     "options_ui": {
         "page": "dist/options/index.html"
     },
