@@ -1,6 +1,6 @@
 import * as TOML from "@iarna/toml"
 
-const { defaults } = require("./defaults.json");
+import defaults from "./defaults.json";
 
 const editorElement = document.getElementById("editor") as HTMLTextAreaElement;
 const saveButton = document.getElementById("save") as HTMLButtonElement;

@@ -1,8 +1,8 @@
 import { parseHTML } from "./parse";
 
 type IconInfo = {
-    url: string,
-    size: number,
+    url: string;
+    size: number;
 }
 
 export async function fetchIcons(url: string): Promise<string[]> {
@@ -21,7 +21,7 @@ export async function getIcons(d: Document, url: string): Promise<string[]> {
         const manifest = await fetch(manifestURL).then(res => res.json());
         const manifestIcons = [];
         if ("icons" in manifest) {
-            for (let icon of manifest["icons"]) {
+            for (const icon of manifest["icons"]) {
                 manifestIcons.push({
                     url: resolve(url, icon.src),
                     size: getSize(icon.sizes),
@@ -37,7 +37,7 @@ export async function getIcons(d: Document, url: string): Promise<string[]> {
     const iconEls = qsa(d.head, "link[rel='icon'][href]");
     if (iconEls.length > 0) {
         const iconIcons = [];
-        for (let iconEl of iconEls) {
+        for (const iconEl of iconEls) {
             iconIcons.push({
                 url: resolve(url, iconEl.getAttribute("href")),
                 size: getSize(iconEl.getAttribute("sizes")),

@@ -5,7 +5,7 @@ import InfoElem from "./infoElem";
 export default class ListElem extends Elem {
     private elems: InfoElem[] = [];
 
-    constructor(ordered: boolean = false, private c: new () => InfoElem) {
+    constructor(ordered = false, private c: new () => InfoElem) {
         super();
         this.element = pmx(ordered ? "ol" : "ul");
     }
@@ -53,7 +53,7 @@ export default class ListElem extends Elem {
         const removedElem = this.elems.splice(index, 1)[0];
         const removedElement = removedElem.getElement();
         let liElement;
-        for (let element of [].slice.call(this.element.children)) {
+        for (const element of [].slice.call(this.element.children)) {
             if (element.children[0] === removedElement) {
                 liElement = element;
                 break;

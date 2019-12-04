@@ -5,18 +5,18 @@ interface Attributes {
     html?: string;
     children?: Node[];
     style?: {
-        [key: string]: string
+        [key: string]: string;
     };
     attrs?: {
-        [key: string]: string
+        [key: string]: string;
     };
 }
 
 export default function pmx(tagName: string, attributes: Attributes = {}): HTMLElement {
-    let elem = document.createElement(tagName)
+    const elem = document.createElement(tagName)
 
     if (attributes) {
-        for (let attributeName in attributes.attrs) {
+        for (const attributeName in attributes.attrs) {
             elem.setAttribute(attributeName, attributes.attrs[attributeName])
         }
 
@@ -25,13 +25,13 @@ export default function pmx(tagName: string, attributes: Attributes = {}): HTMLE
         }
 
         if (attributes.classList) {
-            for (let className of attributes.classList) {
+            for (const className of attributes.classList) {
                 elem.classList.add(className);
             }
         }
 
         if (attributes.children) {
-            for (let child of attributes.children) elem.appendChild(child)
+            for (const child of attributes.children) elem.appendChild(child)
         } else if (attributes.text) {
             elem.textContent = attributes.text;
         } else if (attributes.html) {
@@ -39,7 +39,7 @@ export default function pmx(tagName: string, attributes: Attributes = {}): HTMLE
         }
 
         if (attributes.style) {
-            for (let property in attributes.style) {
+            for (const property in attributes.style) {
                 elem.style.setProperty(property, attributes.style[property]);
             }
         }

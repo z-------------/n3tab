@@ -9,7 +9,7 @@ export default class TopSitesElem extends ListElem {
 
     private async initialize() {
         const topSites = await browser.topSites.get();
-        for (let info of topSites) {
+        for (const info of topSites) {
             this.push(info);
         }
     }

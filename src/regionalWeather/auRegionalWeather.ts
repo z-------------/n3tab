@@ -1,6 +1,6 @@
 import get from "lib/get";
 import { parseXML } from "lib/parse";
-import IRegionalWeather, { RegionalWeatherInfo } from "./iRegionalWeather";
+import RegionalWeather, { RegionalWeatherInfo } from "./regionalWeather";
 
 const feedsMap = new Map([
     ["nsw", "http://www.bom.gov.au/fwo/IDZ00054.warnings_nsw.xml"],
@@ -12,7 +12,7 @@ const feedsMap = new Map([
     ["nt",  "http://www.bom.gov.au/fwo/IDZ00055.warnings_nt.xml"],
 ]);
 
-export default class AURegionalWeather implements IRegionalWeather {
+export default class AURegionalWeather implements RegionalWeather {
     async getInfo(region: string) {
         if (!(feedsMap.has(region))) throw new Error("Invalid region");
 
@@ -23,7 +23,7 @@ export default class AURegionalWeather implements IRegionalWeather {
         const titleNodes = [].slice.call(doc.querySelectorAll("item > title"));
         if (titleNodes.length === 0) return [];
 
-        for (let titleNode of titleNodes) {
+        for (const titleNode of titleNodes) {
             const warningStr = titleNode.textContent
                 .replace(/\n/g, " ").replace(/\s\s+/g, " ")  // normalize whitespace
                 .replace(/\d\d\/\d\d:\d\d [A-Z]+ /, "");     // remove leading timestamp

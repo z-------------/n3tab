@@ -3,7 +3,7 @@ import Elem from "./elem";
 export default abstract class TextElem extends Elem {
     protected text: string;
 
-    constructor(html: string = "") {
+    constructor(html = "") {
         super();
         this.text = html;
     }

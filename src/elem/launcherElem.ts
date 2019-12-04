@@ -5,8 +5,8 @@ import { fetchIcons } from "lib/icons";
 import { Cache, TIME_DAY } from "lib/get";
 
 type LauncherItem = {
-    title: string,
-    url: string,
+    title: string;
+    url: string;
 }
 
 class LauncherItemElem extends InfoElem {
@@ -48,7 +48,7 @@ export default class LauncherElem extends ListElem {
     }
 
     private initialize() {
-        for (let item of this.items) {
+        for (const item of this.items) {
             this.push(item);
         }
     }

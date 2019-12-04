@@ -1,7 +1,7 @@
 import Elem from "./elem";
 
 export interface Params {
-    [key: string]: string | number,
+    [key: string]: string | number;
 }
 
 /**
@@ -19,7 +19,7 @@ export default abstract class InterpolateElem extends Elem {
         super();
         this.element = element;
         this.template = element.innerHTML;
-        for (let attr of this.element.getAttributeNames()) {
+        for (const attr of this.element.getAttributeNames()) {
             this.origAttrs.set(attr, this.element.getAttribute(attr));
         }
     }
@@ -27,7 +27,7 @@ export default abstract class InterpolateElem extends Elem {
     private interpolate() {
         this.element.innerHTML = stringInterpolate(this.template, this.params);
 
-        for (let attr of this.element.getAttributeNames()) {
+        for (const attr of this.element.getAttributeNames()) {
             if (!this.origAttrs.has(attr)) continue;
             const orig = this.origAttrs.get(attr);
             const val = stringInterpolate(orig, this.params);
@@ -36,7 +36,7 @@ export default abstract class InterpolateElem extends Elem {
     }
 
     setParams(params: Params) {
-        for (let key in params) {
+        for (const key in params) {
             if (typeof params[key] === "undefined") continue;
             this.params[key] = params[key];
         }
@@ -54,7 +54,7 @@ function escapeRegEx(str: string): string {
 
 function stringInterpolate(template: string, params: Params) {
     let result = template;
-    for (let key in params) {
+    for (const key in params) {
         result = result.replace(new RegExp(escapeRegEx(`\${${key}}`), "g"), params[key].toString());
     }
     return result;

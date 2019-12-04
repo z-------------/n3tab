@@ -8,9 +8,9 @@ export const CACHE_DEFAULT_TIMEOUT = TIME_HOUR / 2;
 const CACHE_NS = "com.zackguard.cachedget";
 
 type GetOptions = {
-    timeout?: number,
-    json?: boolean,
-    headers?: Headers,
+    timeout?: number;
+    json?: boolean;
+    headers?: Headers;
 }
 
 const store = browser.storage.local;

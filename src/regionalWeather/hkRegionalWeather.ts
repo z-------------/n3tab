@@ -1,6 +1,6 @@
 import get from "lib/get";
 import { parseXML } from "lib/parse";
-import IRegionalWeather, { ASSETS_PATH, RegionalWeatherInfo } from "./iRegionalWeather";
+import RegionalWeather, { ASSETS_PATH, RegionalWeatherInfo } from "./regionalWeather";
 
 const FILE_EXT = "svg";
 
@@ -28,7 +28,7 @@ const iconMap = new Map([
     ["tsunami warning", "warning_tsunami_no_text"],
 ]);
 
-export default class HKRegionalWeather implements IRegionalWeather {
+export default class HKRegionalWeather implements RegionalWeather {
     private static URL = "https://rss.weather.gov.hk/rss/WeatherWarningSummaryv2.xml";
 
     async getInfo() {
@@ -43,7 +43,7 @@ export default class HKRegionalWeather implements IRegionalWeather {
         const titleNodes = [].slice.call(doc.querySelectorAll("item > title"));
         if (titleNodes.length === 0) return [];
 
-        for (let titleNode of titleNodes) {
+        for (const titleNode of titleNodes) {
             const titleStr = titleNode.textContent;
             const warningStr = titleStr.substring(0, titleStr.indexOf(" issued"));
             if (!warningStr) continue;

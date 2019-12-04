@@ -1,13 +1,13 @@
 import InfoElem from "lib/elem/infoElem";
 import pmx from "lib/pmx";
 import get from "lib/get";
-import IHideableElem from "./iSoftHideableElem";
+import HideableElem from "./hideableElem";
 
 type WeatherInfo = {
-    temperature: number,
-    summary: string,
-    icon: string,
-    location: [number, number],
+    temperature: number;
+    summary: string;
+    icon: string;
+    location: [number, number];
 }
 
 const ICON_DEFAULT = "na";
@@ -26,7 +26,7 @@ const iconMap = new Map([
     ["partly-cloudy-night", "night-partly-cloudy"],
 ]);
 
-export default class WeatherElem extends InfoElem implements IHideableElem {
+export default class WeatherElem extends InfoElem implements HideableElem {
     private static REQUEST_URL = "https://nntp-server-redux.netlify.com/.netlify/functions/wx";
 
     constructor() {
