@@ -26,7 +26,7 @@ test("pmx id works", t => {
 test("pmx classList works", t => {
     const classList = ["foo", "bar"];
     const el = pmx("div", { classList });
-    for (let className of classList)
+    for (const className of classList)
         t.assert(el.classList.contains(className));
 });
 
@@ -85,7 +85,7 @@ test("pmx style works", t => {
     };
     const styleMap = new Map(Object.entries(style));
     const el = pmx("div", { style });
-    for (let prop in style) {
+    for (const prop in style) {
         t.is(el.style.getPropertyValue(prop), styleMap.get(prop));
     }
 });
@@ -97,7 +97,7 @@ test("pmx attrs works", t => {
     };
     const attrsMap = new Map(Object.entries(attrs));
     const el = pmx("input", { attrs });
-    for (let attr in attrs) {
+    for (const attr in attrs) {
         t.is(el.getAttribute(attr), attrsMap.get(attr));
     }
 });

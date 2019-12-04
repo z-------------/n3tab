@@ -65,7 +65,10 @@ test("Timer#stop works", t => {
 test("Timer#stop warns if not started", t => {
     const INTERVAL = 500;
     return new Promise(resolve => {
-        const timer = new Timer(() => {}, INTERVAL);
+        const timer = new Timer(
+            () => { /* do nothing */ },
+            INTERVAL
+        );
         t.throws(() => {
             timer.stop();
         });
