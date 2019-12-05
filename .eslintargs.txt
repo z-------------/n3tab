@@ -1,0 +1,1 @@
+src/**/*.ts lib/**/*.ts test/**/*.ts
