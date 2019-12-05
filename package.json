@@ -1,6 +1,7 @@
 {
   "scripts": {
     "watch": "webpack --watch --build-delimiter=\"### end build output ###\"",
+    "build": "webpack",
     "lint": "at-args -v eslint @.eslintargs.txt",
     "test": "tsc -P test && nyc ava"
   },
