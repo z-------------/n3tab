@@ -14,6 +14,8 @@ jobs:
       run: |
         yarn install
         yarn lint
+      env:
+        CI: true
   build:
     runs-on: ubuntu-latest
     steps:
@@ -41,17 +43,8 @@ jobs:
         yarn test
       env:
         CI: true
-  coverage:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v1
-    - uses: actions/setup-node@v1
-      with:
-        node-version: 12.x
-    - run: |
-        yarn install
-    - uses: paambaati/codeclimate-action@v2.3.0
+    - name: Upload coverage
+      uses: paambaati/codeclimate-action@v2.3.0
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPORTER_ID }}
       with:
