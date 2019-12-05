@@ -1,7 +1,8 @@
 {
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
-        "sourceType": "module"
+        "sourceType": "module",
+        "project": "./tsconfig.json"
     },
     "plugins": ["@typescript-eslint"],
     "extends": [
@@ -16,9 +17,6 @@
     },
     "rules": {
         "no-inner-declarations": 0,
-
-        "no-unused-vars": 0,
-        "@typescript-eslint/no-unused-vars": "error",
 
         "@typescript-eslint/no-explicit-any": 0,
         "@typescript-eslint/no-use-before-define": 0,
@@ -38,6 +36,14 @@
         "no-useless-concat": "error",
         "no-with": "error",
         "wrap-iife": "error",
-        "yoda": ["error", "never"]
+        "yoda": ["error", "never"],
+
+        "@typescript-eslint/array-type": ["warn", { "default": "array" }],
+        "@typescript-eslint/restrict-plus-operands": ["error", { "checkCompoundAssignments": true }],
+        "@typescript-eslint/prefer-string-starts-ends-with": "warn",
+        "@typescript-eslint/prefer-optional-chain": "error",
+        "@typescript-eslint/prefer-for-of": "error",
+        "@typescript-eslint/no-for-in-array": "warn",
+        "@typescript-eslint/prefer-nullish-coalescing": "error"
     }
   }
