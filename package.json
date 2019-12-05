@@ -30,10 +30,5 @@
   },
   "dependencies": {
     "@iarna/toml": "^2.2.3"
-  },
-  "ava": {
-    "require": [
-      "./test/_setup-browser-env.js"
-    ]
   }
 }
