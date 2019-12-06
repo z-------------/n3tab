@@ -1,8 +1,14 @@
 {
     "extends": "@istanbuljs/nyc-config-typescript",
+    "all": true,
+    "include": [
+        "src/**/*",
+        "lib/**/*"
+    ],
     "reporter": [
         "html",
         "text-summary",
         "lcovonly"
-    ]
+    ],
+    "require": ["ts-node/register"]
 }
