@@ -9,5 +9,10 @@
         "esModuleInterop": true,
         "target": "ES2017",
         "baseUrl": "."
-    }
+    },
+    "include": [
+        "src/**/*.ts",
+        "lib/**/*.ts",
+        "test/**/*.ts"
+    ]
 }
