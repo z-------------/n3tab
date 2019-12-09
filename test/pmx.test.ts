@@ -69,6 +69,21 @@ test("pmx children overrides text", t => {
     t.is(el.children.length, 2);
 });
 
+test("pmx children overrides html", t => {
+    const children = [
+        pmx("h1", { id: "foo" }),
+        pmx("p", { id: "bar" }),
+    ];
+    const html = "<span>some text</span> that could be <em>HTML</em>.";
+    const el = pmx("div", {
+        children, html
+    });
+
+    t.is(el.children[0], children[0]);
+    t.is(el.children[1], children[1]);
+    t.is(el.children.length, 2);
+});
+
 test("pmx text overrides html", t => {
     const text = "<span>some text</span> that could be <em>HTML</em>.";
     const html = "<span>some text</span> that could be <em>HTML</em>.";
