@@ -53,7 +53,7 @@ export default class HKRegionalWeather implements RegionalWeather {
             r.push({
                 summary: warningStr,
                 icon,
-                url: "https://rss.weather.gov.hk/rss/WeatherWarningSummaryv2.xml",
+                url: "https://www.hko.gov.hk/en/wxinfo/dailywx/wxwarntoday.htm",
             });
         }
 
