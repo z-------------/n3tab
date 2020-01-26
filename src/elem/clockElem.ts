@@ -1,8 +1,9 @@
 import InterpolateElem from "lib/elem/interpolateElem";
 import pmx from "lib/pmx";
 import Timer from "lib/timer";
+import Widgetable from "./widgetable";
 
-export default class ClockElem extends InterpolateElem {
+export default class ClockElem extends InterpolateElem implements Widgetable {
     constructor() {
         super(pmx("div", {
             classList: ["card", "clock"],
@@ -22,5 +23,9 @@ export default class ClockElem extends InterpolateElem {
         const now = new Date();
         const [h, m, s] = [now.getHours(), now.getMinutes(), now.getSeconds()].map(this.formatSegment);
         this.setParams({ h, m, s });
+    }
+
+    getIcon() {
+        return "";
     }
 }

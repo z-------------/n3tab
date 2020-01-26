@@ -1,7 +1,8 @@
 import InfoElem from "lib/elem/infoElem";
 import pmx from "lib/pmx";
 import get from "lib/get";
-import HideableElem from "./hideableElem";
+import Hideable from "./hideable";
+import Widgetable from "./widgetable";
 
 type WeatherInfo = {
     temperature: number;
@@ -26,7 +27,7 @@ const iconMap = new Map([
     ["partly-cloudy-night", "night-partly-cloudy"],
 ]);
 
-export default class WeatherElem extends InfoElem implements HideableElem {
+export default class WeatherElem extends InfoElem implements Hideable, Widgetable {
     private static REQUEST_URL = "https://nntp-server-redux.netlify.com/.netlify/functions/wx";
 
     constructor() {
@@ -77,6 +78,10 @@ export default class WeatherElem extends InfoElem implements HideableElem {
 
     show() {
         this.element.style.color = null;
+    }
+
+    getIcon() {
+        return "";
     }
 
     private async update() {

@@ -3,6 +3,7 @@ import InfoElem from "lib/elem/infoElem";
 import pmx from "lib/pmx";
 import { fetchIcons } from "lib/icons";
 import { Cache, TIME_DAY } from "lib/get";
+import Widgetable from "./widgetable";
 
 type LauncherItem = {
     title: string;
@@ -41,7 +42,7 @@ class LauncherItemElem extends InfoElem {
     }
 }
 
-export default class LauncherElem extends ListElem {
+export default class LauncherElem extends ListElem implements Widgetable {
     constructor(private items: LauncherItem[]) {
         super(false, LauncherItemElem);
         this.initialize();
@@ -51,5 +52,9 @@ export default class LauncherElem extends ListElem {
         for (const item of this.items) {
             this.push(item);
         }
+    }
+
+    getIcon() {
+        return "";
     }
 }

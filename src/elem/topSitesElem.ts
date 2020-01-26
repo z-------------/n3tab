@@ -1,7 +1,8 @@
 import ListElem from "lib/elem/listElem";
 import SiteCardElem from "./siteCardElem";
+import Widgetable from "./widgetable";
 
-export default class TopSitesElem extends ListElem {
+export default class TopSitesElem extends ListElem implements Widgetable {
     constructor() {
         super(true, SiteCardElem);
         this.initialize();
@@ -12,5 +13,9 @@ export default class TopSitesElem extends ListElem {
         for (const info of topSites) {
             this.push(info);
         }
+    }
+
+    getIcon() {
+        return "";
     }
 }
