@@ -13,12 +13,14 @@ const feedsMap = new Map([
 ]);
 
 export default class AURegionalWeather implements RegionalWeather {
-    async getInfo(region: string) {
-        if (!(feedsMap.has(region))) throw new Error("Invalid region");
+    constructor(private regionName: string) {}
+
+    async getInfo() {
+        if (!feedsMap.has(this.regionName)) throw new Error("Invalid region");
 
         const r: RegionalWeatherInfo[] = [];
 
-        const xml = await get(feedsMap.get(region));
+        const xml = await get(feedsMap.get(this.regionName));
         const doc = parseXML(xml);
         const titleNodes = [].slice.call(doc.querySelectorAll("item > title"));
         if (titleNodes.length === 0) return [];
@@ -29,7 +31,7 @@ export default class AURegionalWeather implements RegionalWeather {
                 .replace(/\d\d\/\d\d:\d\d [A-Z]+ /, "");     // remove leading timestamp
             r.push({
                 summary: warningStr,
-                icon: null
+                url: `http://www.bom.gov.au/${this.regionName}/warnings/`,
             });
         }
 

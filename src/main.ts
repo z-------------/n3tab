@@ -3,8 +3,7 @@ import TopSitesElem from "./elem/topSitesElem";
 import WeatherElem from "./elem/weatherElem";
 import WidgetElem from "./elem/widgetElem";
 import LauncherElem from "./elem/launcherElem";
-// import HKRegionalWeather from "./regionalWeather/hkRegionalWeather";
-// import AURegionalWeather from "./regionalWeather/auRegionalWeather";
+import HKRegionalWeather from "./regionalWeather/hkRegionalWeather";
 
 // import { db } from "./storage";
 // import * as util from "./util";
@@ -31,7 +30,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }]);
     new WidgetElem(launcherElem, 2).appendTo(container);
 
-    new WidgetElem(new WeatherElem(), 1, "Weather").appendTo(container);
+    const regionalWeather = new HKRegionalWeather();
+    new WidgetElem(new WeatherElem(regionalWeather), 1, "Weather").appendTo(container);
 
     new WidgetElem(new TopSitesElem(), 1, "Top Sites").appendTo(container);
 

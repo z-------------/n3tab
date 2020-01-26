@@ -52,7 +52,8 @@ export default class HKRegionalWeather implements RegionalWeather {
             const icon = `${ASSETS_PATH}/hk/${iconMap.get(warningKey)}.${FILE_EXT}`;
             r.push({
                 summary: warningStr,
-                icon
+                icon,
+                url: "https://rss.weather.gov.hk/rss/WeatherWarningSummaryv2.xml",
             });
         }
 

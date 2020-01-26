@@ -3,6 +3,7 @@ import pmx from "lib/pmx";
 import get from "lib/get";
 import Hideable from "./hideable";
 import Widgetable from "./widgetable";
+import RegionalWeather from "src/regionalWeather/regionalWeather";
 
 type WeatherInfo = {
     temperature: number;
@@ -30,7 +31,7 @@ const iconMap = new Map([
 export default class WeatherElem extends InfoElem implements Hideable, Widgetable {
     private static REQUEST_URL = "https://nntp-server-redux.netlify.com/.netlify/functions/wx";
 
-    constructor() {
+    constructor(private regionalWeather?: RegionalWeather) {
         super(pmx("a", {
             attrs: {
                 target: "_blank",
@@ -48,7 +49,13 @@ export default class WeatherElem extends InfoElem implements Hideable, Widgetabl
                 pmx("div", {
                     classList: ["weather_bottom"],
                     children: [
-                        pmx("div", { text: "${summary}", classList: ["weather_info--summary"] }),
+                        pmx("div", {
+                            classList: ["weather_info--summary"],
+                            children: [
+                                pmx("span", { text: "${summary}", classList: ["weather_info--text"] }),
+                                pmx("a", { classList: ["weather_info--regional"] }),
+                            ],
+                        }),
                     ],
                 }),
             ]
@@ -61,6 +68,17 @@ export default class WeatherElem extends InfoElem implements Hideable, Widgetabl
         this.update().then(() => {
             this.show()
         });
+
+        if (this.regionalWeather) {
+            this.regionalWeather.getInfo()
+                .then(infos => {
+                    const info = infos[0];
+                    const regionalWeatherEl = this.element.getElementsByClassName("weather_info--regional")[0] as HTMLElement;
+                    regionalWeatherEl.setAttribute("title", info.summary);
+                    regionalWeatherEl.setAttribute("href", info.url ?? null);
+                    regionalWeatherEl.style.backgroundImage = `url(${info.icon ?? "/assets/icon/material/info.svg"})`;
+                });
+        }
     }
 
     setInfo(info: WeatherInfo) {
