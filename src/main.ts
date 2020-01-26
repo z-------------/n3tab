@@ -3,8 +3,15 @@ import TopSitesElem from "./elem/topSitesElem";
 import WeatherElem from "./elem/weatherElem";
 import WidgetElem from "./elem/widgetElem";
 import LauncherElem from "./elem/launcherElem";
-import HKRegionalWeather from "./regionalWeather/hkRegionalWeather";
-import AURegionalWeather from "./regionalWeather/auRegionalWeather";
+// import HKRegionalWeather from "./regionalWeather/hkRegionalWeather";
+// import AURegionalWeather from "./regionalWeather/auRegionalWeather";
+
+// import { db } from "./storage";
+// import * as util from "./util";
+
+// interface HTMLInputEvent extends Event {
+//     target: HTMLInputElement & EventTarget;
+// }
 
 document.addEventListener("DOMContentLoaded", async () => {
     const container = document.getElementById("widgets-container");
@@ -29,10 +36,4 @@ document.addEventListener("DOMContentLoaded", async () => {
     new WidgetElem(new TopSitesElem(), 1, "Top Sites").appendTo(container);
 
     new WidgetElem(new ClockElem(), 1).appendTo(container);
-
-    const hkrwx = new HKRegionalWeather();
-    console.log("hk", await hkrwx.getInfo());
-
-    const auwarwx = new AURegionalWeather();
-    console.log("au-wa", await auwarwx.getInfo("wa"));
 });
