@@ -10,10 +10,12 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
+    - name: install pnpm
+      run: npm i -g pnpm
     - name: install and lint
       run: |
-        yarn install
-        yarn lint
+        pnpm install
+        pnpm run lint
       env:
         CI: true
   build:
@@ -23,10 +25,12 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
+    - name: install pnpm
+      run: npm i -g pnpm
     - name: install and build
       run: |
-        yarn install
-        yarn build
+        pnpm install
+        pnpm run build
       env:
         CI: true
   test:
@@ -37,10 +41,12 @@ jobs:
     - uses: actions/setup-node@v1
       with:
         node-version: 12.x
+    - name: install pnpm
+      run: npm i -g pnpm
     - name: install and test
       run: |
-        yarn install
-        yarn test
+        pnpm install
+        pnpm run test
       env:
         CI: true
     - name: Upload coverage
@@ -48,4 +54,4 @@ jobs:
       env:
         CC_TEST_REPORTER_ID: ${{ secrets.CODECLIMATE_REPORTER_ID }}
       with:
-        coverageCommand: yarn test
+        coverageCommand: pnpm run test
