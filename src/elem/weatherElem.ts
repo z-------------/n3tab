@@ -3,7 +3,7 @@ import pmx from "lib/pmx";
 import get from "lib/get";
 import Hideable from "./hideable";
 import Widgetable from "./widgetable";
-import RegionalWeather from "src/regionalWeather/regionalWeather";
+import RegionalWeather, { RegionalWeatherInfo } from "src/regionalWeather/regionalWeather";
 
 type WeatherInfo = {
     temperature: number;
@@ -53,7 +53,16 @@ export default class WeatherElem extends InfoElem implements Hideable, Widgetabl
                             classList: ["weather_info--summary"],
                             children: [
                                 pmx("span", { text: "${summary}", classList: ["weather_info--text"] }),
-                                pmx("a", { classList: ["weather_info--regional"] }),
+                                pmx("a", {
+                                    classList: ["weather_info--regional"],
+                                    attrs: {
+                                        title: "${regionalSummary}",
+                                        href: "${regionalUrl}",
+                                    },
+                                    style: {
+                                        "background-image": "url('${regionalIcon}')",
+                                    },
+                                }),
                             ],
                         }),
                     ],
@@ -70,14 +79,9 @@ export default class WeatherElem extends InfoElem implements Hideable, Widgetabl
         });
 
         if (this.regionalWeather) {
-            this.regionalWeather.getInfo()
-                .then(infos => {
-                    const info = infos[0];
-                    const regionalWeatherEl = this.element.getElementsByClassName("weather_info--regional")[0] as HTMLElement;
-                    regionalWeatherEl.setAttribute("title", info.summary);
-                    regionalWeatherEl.setAttribute("href", info.url ?? null);
-                    regionalWeatherEl.style.backgroundImage = `url(${info.icon ?? "/assets/icon/material/info.svg"})`;
-                });
+            this.regionalWeather.getInfo().then(([info]) => {
+                if (info) this.setRegionalInfo(info);
+            });
         }
     }
 
@@ -87,6 +91,15 @@ export default class WeatherElem extends InfoElem implements Hideable, Widgetabl
             summary: info.summary,
             icon: iconMap.get(info.icon) || ICON_DEFAULT,
             url: `${EXTERNAL_URL}/${info.location[0]},${info.location[1]}`,
+        });
+    }
+
+    setRegionalInfo(info: RegionalWeatherInfo) {
+        console.log(info);
+        this.setParams({
+            regionalSummary: info.summary,
+            regionalUrl: info.url ?? null,
+            regionalIcon: info.icon ?? "/assets/icon/material/info.svg",
         });
     }
 
