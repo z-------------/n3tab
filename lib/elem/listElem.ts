@@ -3,11 +3,15 @@ import Elem from "./elem";
 import InfoElem from "./infoElem";
 
 export default class ListElem extends Elem {
-    private elems: InfoElem[] = [];
+    protected elems: InfoElem[] = [];
+    private listElement: HTMLElement;
 
-    constructor(ordered = false, private c: new () => InfoElem) {
+    constructor(private c: new () => InfoElem, ordered = false) {
         super();
-        this.element = pmx(ordered ? "ol" : "ul");
+        this.listElement = pmx(ordered ? "ol" : "ul");
+        this.element = pmx("div", {
+            children: [this.listElement],
+        });
     }
 
     // setAll(data: Params[]) {
@@ -36,13 +40,13 @@ export default class ListElem extends Elem {
     push(info: object) {
         const elem = this.create(info);
         this.elems.push(elem);
-        this.element.appendChild(this.createContainer(elem));
+        this.listElement.appendChild(this.createContainer(elem));
     }
 
     unshift(info: object) {
-        if (this.element.children.length > 0) {
+        if (this.listElement.children.length > 0) {
             const elem = this.create(info);
-            this.element.insertBefore(this.createContainer(elem), this.element.children[0]);
+            this.listElement.insertBefore(this.createContainer(elem), this.listElement.children[0]);
         } else {
             this.push(info);
         }
@@ -53,13 +57,13 @@ export default class ListElem extends Elem {
         const removedElem = this.elems.splice(index, 1)[0];
         const removedElement = removedElem.getElement();
         let liElement;
-        for (const element of [].slice.call(this.element.children)) {
+        for (const element of [].slice.call(this.listElement.children)) {
             if (element.children[0] === removedElement) {
                 liElement = element;
                 break;
             }
         }
-        this.element.removeChild(liElement);
+        this.listElement.removeChild(liElement);
     }
 
     setInfo(index: number, info: object) {

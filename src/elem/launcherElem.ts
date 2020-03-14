@@ -22,7 +22,7 @@ class LauncherItemElem extends InfoElem {
         }));
     }
 
-    async setInfo(info: LauncherItem) {
+    async processInfo(info: LauncherItem) {
         this.setParams({
             url: info.url,
             title: info.title,
@@ -44,7 +44,7 @@ class LauncherItemElem extends InfoElem {
 
 export default class LauncherElem extends ListElem implements Widgetable {
     constructor(private items: LauncherItem[]) {
-        super(false, LauncherItemElem);
+        super(LauncherItemElem, false);
         this.initialize();
     }
 

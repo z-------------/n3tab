@@ -85,7 +85,7 @@ export default class WeatherElem extends InfoElem implements Hideable, Widgetabl
         }
     }
 
-    setInfo(info: WeatherInfo) {
+    processInfo(info: WeatherInfo) {
         this.setParams({
             temperature: Math.round(info.temperature),
             summary: info.summary,

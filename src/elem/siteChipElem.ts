@@ -4,7 +4,7 @@ import { escape } from "lib/html";
 
 export type SiteInfo = browser.topSites.MostVisitedURL;
 
-export default class SiteCardElem extends InfoElem {
+export default class SiteChipElem extends InfoElem {
     constructor() {
         super(pmx("a", {
             attrs: {
@@ -18,7 +18,7 @@ export default class SiteCardElem extends InfoElem {
         }));
     }
 
-    setInfo(info: SiteInfo) {
+    processInfo(info: SiteInfo) {
         this.setParams({
             url: info.url,
             tooltip: info.url,

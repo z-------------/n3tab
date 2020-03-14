@@ -1,10 +1,10 @@
 import ListElem from "lib/elem/listElem";
-import SiteCardElem from "./siteCardElem";
+import SiteChipElem from "./siteChipElem";
 import Widgetable from "./widgetable";
 
 export default class TopSitesElem extends ListElem implements Widgetable {
     constructor() {
-        super(true, SiteCardElem);
+        super(SiteChipElem, true);
         this.initialize();
     }
 
